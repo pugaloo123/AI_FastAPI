@@ -1,4 +1,6 @@
 from contextlib import asynccontextmanager
+
+import uvicorn
 from fastapi import FastAPI, Body, Request
 from starlette.middleware.cors import CORSMiddleware
 
@@ -45,10 +47,12 @@ def send_my_promt(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=['http://localhost:5500'
+    allow_origins=['http://localhost:5500',
                    'http://127.0.0.1:5500'],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+if __name__ == '__main__':
+    uvicorn.run("main:app", host="0.0.0.0", port=8000)
